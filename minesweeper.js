@@ -1,14 +1,16 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 function startGame () {
-  addListeners(document.getElementsByClassName('board')[0].children)
+  var boardChildren = document.getElementsByClassName('board')[0].children
+  for (var i = 0; i < boardChildren.length; i++) {
+    addListeners(boardChildren[i])
+    addCellToBoard(boardChildren[i])
+  };
 }
 
 function addListeners (element) {
-  for (var i = 0; i < element.length; i++) {
-    element[i].addEventListener('click', showCell)
-    element[i].addEventListener('contextmenu', markCell)
-  }
+  element.addEventListener('click', showCell)
+  element.addEventListener('contextmenu', markCell)
 }
 
 function showCell (evt) {
@@ -30,7 +32,7 @@ function getRow (element) {
     if (className[i].includes('row-')) {
       return parseInt(className[i].split('row-'), 10)
     }
-  }
+  };
 }
 
 function getCol (element) {
@@ -39,5 +41,13 @@ function getCol (element) {
     if (className[i].includes('col-')) {
       return parseInt(className[i].split('col-'), 10)
     }
-  }
+  };
+}
+
+function addCellToBoard (element) {
+  var newCell = {}
+  newCell.row = getRow(element)
+  newCell.col = getCol(element)
+  newCell.isMine = element.classList.contains('mine')
+  board.cells.push(newCell)
 }
