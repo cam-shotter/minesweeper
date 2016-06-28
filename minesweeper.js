@@ -19,3 +19,25 @@ function markCell (evt) {
   evt.preventDefault()
   evt.target.classList.toggle('marked')
 }
+
+var board = {
+  cells: []
+}
+
+function getRow (element) {
+  var className = element.classList
+  for (var i = 0; i < className.length; i++) {
+    if (className[i].includes('row-')) {
+      return parseInt(className[i].split('row-'), 10)
+    }
+  }
+}
+
+function getCol (element) {
+  var className = element.classList
+  for (var i = 0; i < className.length; i++) {
+    if (className[i].includes('col-')) {
+      return parseInt(className[i].split('col-'), 10)
+    }
+  }
+}
